@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory: #FAF8F3;
+  --color-beige: #EDE5D9;
+  --color-sage: #A5AA91;
+  --color-olive: #555D48;
+  --color-peach: #D9B6A5;
+  --color-charcoal: #292923;
+  --font-display: "Bodoni Moda", "Didot", Georgia, serif;
+  --font-italic: "Instrument Serif", "Cormorant", Georgia, serif;
+  --font-sans: "Jost", system-ui, sans-serif;
+  --shadow-soft: 0 24px 60px -28px rgba(41, 41, 35, 0.35);
+}
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body.locked { overflow: hidden; }
+::selection { background: var(--color-peach); color: var(--color-charcoal); }
+section[id] { scroll-margin-top: 4.5rem; }
+img { display: block; max-width: 100%; }
+
+.eyebrow {
+  font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--color-olive); font-weight: 400;
+}
+.display { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.02em; line-height: 1.02; }
+.italic-serif { font-family: var(--font-italic); font-style: italic; font-weight: 400; }
+
+/* Buttons — square-ish, editorial */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .65rem;
+  padding: 1rem 2rem; font-size: .72rem; letter-spacing: .26em; text-transform: uppercase; font-weight: 400;
+  border: 1px solid currentColor; border-radius: 2px; cursor: pointer;
+  transition: background-color .5s cubic-bezier(.2,.7,.2,1), color .5s cubic-bezier(.2,.7,.2,1), border-color .5s;
+}
+.btn-dark { background: var(--color-olive); color: var(--color-ivory); border-color: var(--color-olive); }
+.btn-dark:hover { background: var(--color-charcoal); border-color: var(--color-charcoal); }
+.btn-line { color: var(--color-charcoal); }
+.btn-line:hover { background: var(--color-charcoal); color: var(--color-ivory); }
+.btn-light { color: var(--color-ivory); }
+.btn-light:hover { background: var(--color-ivory); color: var(--color-charcoal); }
+
+/* Underline link */
+.ulink { position: relative; }
+.ulink::after { content: ""; position: absolute; left: 0; bottom: -3px; height: 1px; width: 100%; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.ulink:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* Form */
+.field { width: 100%; background: transparent; border: 0; border-bottom: 1px solid rgba(41,41,35,.28); padding: .8rem 0; font: inherit; color: inherit; border-radius: 0; transition: border-color .3s; }
+.field:focus { outline: none; border-color: var(--color-olive); }
+.field[aria-invalid="true"] { border-color: #a4503f; }
+.label { display: block; font-size: .68rem; letter-spacing: .26em; text-transform: uppercase; color: var(--color-olive); }
+.err { color: #a4503f; font-size: .8rem; margin-top: .35rem; }
+
+:focus-visible { outline: 2px solid var(--color-olive); outline-offset: 3px; }
+
+/* Custom cursor — only fine pointers */
+.cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1px solid var(--color-ivory); border-radius: 50%; mix-blend-mode: difference; transition: width .35s, height .35s, margin .35s, background-color .35s; }
+.cursor.hot { width: 64px; height: 64px; margin: -32px 0 0 -32px; background: rgba(255,255,255,.9); }
+@media (pointer: coarse), (hover: none) { .cursor { display: none; } }
+@media (pointer: fine) { body.has-cursor, body.has-cursor a, body.has-cursor button { cursor: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .cursor { display: none; }
+}
+
+@keyframes breathe { 0%,100% { transform: scale(1); opacity: .9 } 50% { transform: scale(1.05); opacity: 1 } }
+@keyframes drip { 0% { transform: scaleY(0); transform-origin: top } 50% { transform: scaleY(1); transform-origin: top } 51% { transform-origin: bottom } 100% { transform: scaleY(0); transform-origin: bottom } }
